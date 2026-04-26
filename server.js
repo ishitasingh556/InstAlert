@@ -1,0 +1,47 @@
+require('dotenv').config();
+const express = require('express');
+const http = require('http');
+const cors = require('cors');
+const { Server } = require('socket.io');
+const connectDB = require('./config/db');
+const emergencySocket = require('./sockets/emergencySocket');
+
+const authRoutes = require('./routes/authRoutes');
+const alertRoutes = require('./routes/alertRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+
+const app = express();
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  }
+});
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads')); // serve evidence files statically
+
+// Connect Database
+connectDB();
+
+// Setup Socket.IO for real-time tracking
+emergencySocket(io);
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/alerts', alertRoutes);
+app.use('/api/evidence', uploadRoutes);
+
+app.get('/', (req, res) => {
+  res.send('InstAlert API API is running...');
+});
+
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
