@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     // Commented out to allow the Login page to be visible first as requested.
     /*
     const setupDemoUser = async () => {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const API_URL = import.meta.env.VITE_API_URL || '';
       try {
         if (!token && !localStorage.getItem('token')) {
           console.log("Setting up integration test user...");
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const triggerSOS = async () => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     if (!token) {
       alert('System is still connecting to the backend... please wait.');
       return;
@@ -107,7 +107,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const triggerSOSToContact = async (contact) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     if (!token) {
       alert('System is still connecting to the backend... please wait.');
       return;
@@ -160,7 +160,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const addContact = async (name, phoneNumber, email) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     if (!token) return alert('Not authenticated!');
     try {
       const res = await fetch(`${API_URL}/api/auth/contacts`, {
@@ -186,7 +186,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const deleteContact = async (contactId) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     if (!token) return alert('Not authenticated!');
     if (!window.confirm('Are you sure you want to remove this guardian?')) return;
     
@@ -212,7 +212,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const registerUser = async (userData) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     try {
       const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
@@ -235,7 +235,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfileReq = async (userData) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     if (!token) return { success: false, message: 'Not authenticated!' };
     try {
       const res = await fetch(`${API_URL}/api/auth/profile`, {
@@ -260,7 +260,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginWithGoogle = async () => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API_URL = import.meta.env.VITE_API_URL || '';
     // In a real app, you'd use a Google Login library to get the token/user info.
     // For this demo, we'll simulate a successful Google Auth callback.
     const mockGoogleData = {

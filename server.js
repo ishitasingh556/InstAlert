@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
@@ -31,13 +32,17 @@ connectDB();
 // Setup Socket.IO for real-time tracking
 emergencySocket(io);
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/evidence', uploadRoutes);
 
-app.get('/', (req, res) => {
-  res.send('InstAlert API API is running...');
+// Catch-all route to serve the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
