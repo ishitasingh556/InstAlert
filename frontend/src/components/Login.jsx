@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiSmartphone, FiArrowRight } from 'react-icons/fi';
-import { FaGoogle, FaApple } from 'react-icons/fa';
+import { FaGoogle, FaApple, FaFacebook, FaGithub } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import logoImg from '../assets/logo.png';
 import './Login.css';
@@ -120,10 +120,16 @@ const Login = () => {
             if (res.success) window.location.href = '/';
             else alert(res.message);
           }}>
-            <FaGoogle /> Google
+            <FaGoogle className="social-icon google" /> Google
           </button>
           <button className="social-btn">
-            <FaApple /> Apple
+            <FaApple className="social-icon apple" /> Apple
+          </button>
+          <button className="social-btn facebook">
+            <FaFacebook className="social-icon" /> Facebook
+          </button>
+          <button className="social-btn github">
+            <FaGithub className="social-icon" /> GitHub
           </button>
         </div>
 
@@ -132,7 +138,7 @@ const Login = () => {
         </button>
 
         <div className="signup-prompt">
-          New to InstAlert? <Link to="/profile">Sign Up</Link>
+          New to InstAlert? <Link to="/register" className="signup-link">Create an Account</Link>
         </div>
       </div>
     </div>
