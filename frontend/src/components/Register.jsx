@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiPhone, FiMapPin, FiArrowRight, FiShield } from 'react-icons/fi';
-import { FaGoogle, FaApple } from 'react-icons/fa';
+import { FaGoogle, FaFacebook, FaGithub } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import logoImg from '../assets/logo.png';
 import './Login.css'; // Reusing Login styles for consistency
@@ -154,10 +154,13 @@ const Register = () => {
             if (res.success) navigate('/');
             else alert(res.message);
           }}>
-            <FaGoogle /> Google
+            <FaGoogle className="social-icon google" /> Google
           </button>
-          <button className="social-btn">
-            <FaApple /> Apple
+          <button className="social-btn facebook">
+            <FaFacebook className="social-icon" /> Facebook
+          </button>
+          <button className="social-btn github">
+            <FaGithub className="social-icon" /> GitHub
           </button>
         </div>
 

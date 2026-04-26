@@ -122,9 +122,6 @@ const Login = () => {
           }}>
             <FaGoogle className="social-icon google" /> Google
           </button>
-          <button className="social-btn">
-            <FaApple className="social-icon apple" /> Apple
-          </button>
           <button className="social-btn facebook">
             <FaFacebook className="social-icon" /> Facebook
           </button>
@@ -132,10 +129,6 @@ const Login = () => {
             <FaGithub className="social-icon" /> GitHub
           </button>
         </div>
-
-        <button className="otp-btn">
-          <FiSmartphone /> Login with OTP
-        </button>
 
         <div className="signup-prompt">
           New to InstAlert? <Link to="/register" className="signup-link">Create an Account</Link>
