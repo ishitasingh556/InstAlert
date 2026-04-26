@@ -33,7 +33,9 @@ connectDB();
 emergencySocket(io);
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
+const distPath = path.join(__dirname, 'frontend/dist');
+console.log('Serving static files from:', distPath);
+app.use(express.static(distPath));
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -42,7 +44,13 @@ app.use('/api/evidence', uploadRoutes);
 
 // Catch-all route to serve the React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
+  const indexPath = path.join(distPath, 'index.html');
+  if (require('fs').existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    console.error('ERROR: index.html not found at', indexPath);
+    res.status(404).send('Frontend build not found. Please check Render build logs.');
+  }
 });
 
 const PORT = process.env.PORT || 5000;
