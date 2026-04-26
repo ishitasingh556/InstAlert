@@ -16,11 +16,12 @@ export const AuthProvider = ({ children }) => {
     // Commented out to allow the Login page to be visible first as requested.
     /*
     const setupDemoUser = async () => {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       try {
         if (!token && !localStorage.getItem('token')) {
           console.log("Setting up integration test user...");
           
-          let res = await fetch('http://localhost:5000/api/auth/register', {
+          let res = await fetch(`${API_URL}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }) => {
           
           // If already exists, just login
           if (res.status === 400) {
-            res = await fetch('http://localhost:5000/api/auth/login', {
+            res = await fetch(`${API_URL}/api/auth/login`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: 'jane.demo@example.com', password: 'password123' })
@@ -61,6 +62,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const triggerSOS = async () => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     if (!token) {
       alert('System is still connecting to the backend... please wait.');
       return;
@@ -70,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
-          const res = await fetch('http://localhost:5000/api/alerts/trigger', {
+          const res = await fetch(`${API_URL}/api/alerts/trigger`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -105,6 +107,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const triggerSOSToContact = async (contact) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     if (!token) {
       alert('System is still connecting to the backend... please wait.');
       return;
@@ -112,7 +115,7 @@ export const AuthProvider = ({ children }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
-          const res = await fetch('http://localhost:5000/api/alerts/trigger-individual', {
+          const res = await fetch(`${API_URL}/api/alerts/trigger-individual`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -157,9 +160,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const addContact = async (name, phoneNumber, email) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     if (!token) return alert('Not authenticated!');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/contacts', {
+      const res = await fetch(`${API_URL}/api/auth/contacts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -182,11 +186,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const deleteContact = async (contactId) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     if (!token) return alert('Not authenticated!');
     if (!window.confirm('Are you sure you want to remove this guardian?')) return;
     
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/contacts/${contactId}`, {
+      const res = await fetch(`${API_URL}/api/auth/contacts/${contactId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -207,8 +212,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const registerUser = async (userData) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
@@ -229,9 +235,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfileReq = async (userData) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     if (!token) return { success: false, message: 'Not authenticated!' };
     try {
-      const res = await fetch('http://localhost:5000/api/auth/profile', {
+      const res = await fetch(`${API_URL}/api/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -253,6 +260,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginWithGoogle = async () => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     // In a real app, you'd use a Google Login library to get the token/user info.
     // For this demo, we'll simulate a successful Google Auth callback.
     const mockGoogleData = {
@@ -263,7 +271,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/google', {
+      const res = await fetch(`${API_URL}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(mockGoogleData)
