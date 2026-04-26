@@ -42,6 +42,21 @@ app.use('/api/auth', authRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/evidence', uploadRoutes);
 
+// Debug route to see file structure on Render
+app.get('/debug-files', (req, res) => {
+  const fs = require('fs');
+  try {
+    const files = {
+      root: fs.readdirSync(__dirname),
+      frontend: fs.existsSync(path.join(__dirname, 'frontend')) ? fs.readdirSync(path.join(__dirname, 'frontend')) : 'not found',
+      dist: fs.existsSync(path.join(__dirname, 'frontend/dist')) ? fs.readdirSync(path.join(__dirname, 'frontend/dist')) : 'not found'
+    };
+    res.json(files);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Catch-all route to serve the React app
 app.get('*', (req, res) => {
   const indexPath = path.join(distPath, 'index.html');
